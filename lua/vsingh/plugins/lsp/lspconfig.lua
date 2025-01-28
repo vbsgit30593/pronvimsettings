@@ -142,6 +142,9 @@ return {
                   ignore = {},
                   maxLineLength = 88,
                 },
+                -- pylint = {
+                --   executable='/Users/vsingh/.pyenv/shims/python',
+                -- }
               },
             },
           },
