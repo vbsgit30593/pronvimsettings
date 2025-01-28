@@ -131,6 +131,22 @@ return {
           },
         })
       end,
+      ["pylsp"] = function()
+        -- configure pylsp server
+        lspconfig["pylsp"].setup({
+          capabilities = capabilities,
+          settings = {
+            pylsp = {
+              plugins = {
+                pycodestyle = {
+                  ignore = {},
+                  maxLineLength = 88,
+                },
+              },
+            },
+          },
+        })
+      end,
     })
   end,
 }
