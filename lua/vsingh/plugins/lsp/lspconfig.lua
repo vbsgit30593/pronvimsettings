@@ -142,11 +142,30 @@ return {
                   ignore = {},
                   maxLineLength = 88,
                 },
+                -- pylint = {
+                --   executable='/Users/vsingh/.pyenv/shims/python',
+                -- }
               },
             },
           },
         })
       end,
+      -- ["pyright"] = function()
+      --   lspconfig["pyright"].setup({
+      --     capabilities = capabilities,
+      --     settings = {
+      --       python = {
+      --         analysis = {
+      --           autoSearchPaths = true,
+      --           useLibraryCodeForTypes = true,
+      --           diagnosticMode = "workspace", -- Check errors across the project
+      --           typeCheckingMode = "basic", -- Options: off | basic | strict
+      --         },
+      --         pythonPath = "/Users/vsingh/.pyenv/shims/python",
+      --       },
+      --     },
+      --   })
+      -- end,
     })
   end,
 }
