@@ -150,6 +150,14 @@ return {
           },
         })
       end,
+      ["clangd"] = function()
+        lspconfig["clangd"].setup({
+          capabilities = capabilities,
+          on_init = function(client, _)
+            client.server_capabilities.semanticTokensProvider = nil
+          end,
+        })
+      end,
       -- ["pyright"] = function()
       --   lspconfig["pyright"].setup({
       --     capabilities = capabilities,
