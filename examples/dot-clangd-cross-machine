@@ -1,0 +1,52 @@
+# .clangd — place at your PROJECT root (not in ~/.config/nvim)
+# Purpose: make a compile_commands.json generated on a Linux build server
+#          usable by clangd running on macOS.
+#
+# Rename this file to exactly ".clangd" in your project.
+# Docs: https://clangd.llvm.org/config
+
+CompileFlags:
+  # Rewrite the build server's source-tree prefix to your local checkout.
+  # Format is:  <server-absolute-path>=<local-absolute-path>
+  # Find the server path by grepping "directory"/"file" in compile_commands.json.
+  PathMatch: [.*]
+  # Point clangd at a real compiler on your Mac so it picks up the correct
+  # system headers / sysroot instead of the Linux ones baked into the db.
+  Compiler: /usr/bin/clang
+
+  # Strip GCC-only or cross-target flags clangd shouldn't apply on macOS.
+  # Add any that show up as "unknown argument" diagnostics.
+  Remove:
+    - -m*                    # target/ABI flags (e.g. -mfpu, -mabi)
+    - -march=*
+    - -mtune=*
+    - -fno-tree-*            # GCC optimizer flags clang doesn't know
+    - -Wlogical-op           # GCC-only warning
+    - -Wno-maybe-uninitialized
+    - --param=*
+    - -fabi-version=*
+
+  # Add flags clangd needs locally (macOS SDK, your include roots, C standard).
+  Add:
+    - -isysroot
+    - /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
+    - -std=c11
+
+Diagnostics:
+  # clang-tidy checks — mirror what your CI runs so editor == build server.
+  ClangTidy:
+    Add:
+      - bugprone-*
+      - performance-*
+      - portability-*
+      - readability-*
+    Remove:
+      - readability-magic-numbers
+      - readability-identifier-length
+  # Silence noise from third-party headers you can't fix.
+  Suppress:
+    - unused-includes
+
+Index:
+  # Index the whole project in the background so navigation works everywhere.
+  Background: Build
