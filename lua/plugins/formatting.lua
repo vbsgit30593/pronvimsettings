@@ -75,6 +75,11 @@ return {
         if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
           return
         end
+        -- Never auto-format C/C++ on save (format manually with <leader>cf)
+        local ft = vim.bo[bufnr].filetype
+        if ft == "c" or ft == "cpp" then
+          return
+        end
         return { timeout_ms = 2000, lsp_format = "fallback" }
       end,
     },
