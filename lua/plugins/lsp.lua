@@ -77,7 +77,7 @@ return {
         "--clang-tidy",            -- run clang-tidy checks inline
         "--header-insertion=iwyu", -- include-what-you-use style inserts
         "--completion-style=detailed",
-        "--function-arg-placeholders",
+        -- "--function-arg-placeholders",
         "--fallback-style=llvm",
         "--all-scopes-completion",
         "--pch-storage=memory",
@@ -103,7 +103,10 @@ return {
         capabilities = {
           offsetEncoding = { "utf-16" },
           textDocument = {
-            completion = { editsNearCursor = true },
+            completion = {
+              editsNearCursor = true,
+              completionItem = { snippetSupport = false },
+            },
           },
         },
       })

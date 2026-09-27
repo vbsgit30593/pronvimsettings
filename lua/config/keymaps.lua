@@ -62,5 +62,6 @@ keymap.set("n", "<leader>W", "<cmd>w<CR>", { desc = "Write/save file" })
 keymap.set("n", "<leader>q", "<cmd>confirm q<CR>", { desc = "Quit window" })
 
 -- Diagnostics (native)
+keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show diagnostic under cursor" })
 keymap.set("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end, { desc = "Previous diagnostic" })
 keymap.set("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end, { desc = "Next diagnostic" })
